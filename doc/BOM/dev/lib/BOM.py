@@ -78,7 +78,9 @@ def write_bom_to_file(target_file_name, bomContent):
         bom_file.write(json.dumps(sortedDict, indent=2))
 
 def add_fasteners():
-    # add custom Fasteners that not in the assembly
+    """add custom Fasteners that not in the assembly
+    Example:
+    
     # spring washer for rails mount
     addCustomfFastener("Spring washer M3", 60)
     # bolts for 3030 extrusion rails mount
@@ -97,6 +99,8 @@ def add_fasteners():
     addCustomfFastener("3030 M3-T-nut", 60)
     # 3030 M5 t-nut for z motor mount and others
     addCustomfFastener("3030 M5-T-nut", 10)
+    """
+    return
 
 def write_bom_files():
     # Write to files

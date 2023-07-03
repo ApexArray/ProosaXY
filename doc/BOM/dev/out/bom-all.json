@@ -3,9 +3,6 @@
     "LCD Board": 1
   },
   "fastener": {
-    "3030 M3-T-nut": 60,
-    "3030 M5-T-nut": 10,
-    "3030 M6-T-nut": 4,
     "Button head M3x10-Screw": 7,
     "Button head M3x18-Screw": 4,
     "Button head M3x20-Screw": 2,
@@ -32,7 +29,7 @@
     "M3x8-Screw": 12,
     "M5-Nut": 80,
     "M6-Nut": 14,
-    "Socket head M3x10-Screw": 100,
+    "Socket head M3x10-Screw": 50,
     "Socket head M3x12-Screw": 8,
     "Socket head M3x14-Screw": 49,
     "Socket head M3x16-Screw": 2,
@@ -41,9 +38,7 @@
     "Socket head M3x30-Screw": 2,
     "Socket head M3x35-Screw": 4,
     "Socket head M3x40-Screw": 8,
-    "Socket head M3x8-Screw": 14,
-    "Spring washer M3": 60,
-    "Square M3-Nut": 30,
+    "Socket head M3x8-Screw": 4,
     "Standard size M3-Washer": 39,
     "Standard size M5-Washer": 89
   },
