@@ -130,20 +130,27 @@ class BomItem:
             if hasattr(part, 'type'):
                 if part.type == "ISO4762":  # type: ignore
                     self.name = f"Socket head {self.name}"
-                if part.type == "ISO7380-1":  # type: ignore
+                elif part.type == "ISO7380-1":  # type: ignore
                     self.name = f"Button head {self.name}"
-                if part.type == "ISO4026": # type: ignore
+                elif part.type == "ISO4026": # type: ignore
                     self.name = f"Grub {self.name}"
-                if part.type == "ISO4032":  # type: ignore
+                elif part.type == "ISO4032":  # type: ignore
                     self.name = f"Hex {self.name}"
-                if part.type == "ISO7092":  # type: ignore
+                elif part.type == "ISO7092":  # type: ignore
                     self.name = f"Small size {self.name}"
-                if part.type == "ISO7093-1":  # type: ignore
+                elif part.type == "ISO7093-1":  # type: ignore
                     self.name = f"Big size {self.name}"
-                if part.type == "ISO7089":  # type: ignore
+                elif part.type == "ISO7089":  # type: ignore
                     self.name = f"Standard size {self.name}"
-                if part.type == "ISO7090":  # type: ignore
+                elif part.type == "ISO7090":  # type: ignore
                     self.name = f"Standard size {self.name}"
+                elif part.type == "ISO10642":  # type: ignore
+                    self.name == f"Countersunk head {self.name}"
+                else:
+                    if part.type.startswith("ISO"):
+                        print(f"WARNING: Unknown part type: {part.type}")
+            else:
+                print(f"WARNING: Fastener has no type: {part.type}")
         # Try to add parent object
         try:
             self.parent = part.Parents[0][0].Label
