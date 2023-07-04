@@ -34,4 +34,4 @@ CAD_FILE = MAIN_PROJECT_PATH / 'src/freecad/component-assembly/MAIN.FCStd'
 #     "OPTIONAL"
 # ]
 
-USE_CACHE = True
+USE_CACHE = False
