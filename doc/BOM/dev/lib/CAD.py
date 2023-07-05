@@ -19,6 +19,7 @@ from difflib import SequenceMatcher
 from lib.overrides import COLOR_OVERRIDES
 import hashlib
 import json
+from lib.fastener_map import fastener_map
 
 # Quick references to BOM part types.  Also provides type hinting in the BomPart dataclass
 PRINTED_MAIN = "main"
@@ -111,6 +112,7 @@ class BomItem:
         return clean_name(self.name)
 
     def __post_init__(self, part: App.DocumentObject):
+
         self.name = part.Label
         self.raw_color = part.ViewObject.ShapeColor  # type: ignore
         self.document = part.Document.Label
@@ -125,39 +127,24 @@ class BomItem:
                 self.bom_item_type = color_category
             else:
                 self.bom_item_type = OTHER
-        # Add descriptive fastener names
-        if self.bom_item_type == FASTENER:
-            if hasattr(part, 'type'):
-                if part.type == "ISO4762":  # type: ignore
-                    self.name = f"Socket head {self.name}"
-                elif part.type == "ISO7380-1":  # type: ignore
-                    self.name = f"Button head {self.name}"
-                elif part.type == "ISO4026": # type: ignore
-                    self.name = f"Grub {self.name}"
-                elif part.type == "ISO4032":  # type: ignore
-                    self.name = f"Hex {self.name}"
-                elif part.type == "ISO7092":  # type: ignore
-                    self.name = f"Small size {self.name}"
-                elif part.type == "ISO7093-1":  # type: ignore
-                    self.name = f"Big size {self.name}"
-                elif part.type == "ISO7089":  # type: ignore
-                    self.name = f"Standard size {self.name}"
-                elif part.type == "ISO7090":  # type: ignore
-                    self.name = f"Standard size {self.name}"
-                elif part.type == "ISO10642":  # type: ignore
-                    self.name == f"Countersunk head {self.name}"
-                else:
-                    if part.type.startswith("ISO"):
-                        print(f"WARNING: Unknown part type: {part.type}")
-            else:
-                print(f"WARNING: Fastener has no type: {part.type}")
-        # Try to add parent object
         try:
             self.parent = part.Parents[0][0].Label
             if self.parent == "snakeoilxy-180":
                 self.parent = part.Parents[1][0].Label
         except:
-            pass
+            self.parent = '<root>'
+        # Add descriptive fastener names
+        if self.bom_item_type == FASTENER:
+            if hasattr(part, 'type'):
+                if part.type in fastener_map.keys():
+                    self.name = f"{fastener_map[part.type]} {self.name}"
+                    # print(f"FASTENER: {self.name} found in {self.__str__()}")
+                else:
+                    if part.type.startswith("ISO"):
+                        print(f"WARNING: Unknown part type: {part.type}")
+            else:
+                print(f"WARNING: Fastener has no type: {self.name}")
+        # Try to add parent object
     
     def __str__(self) -> str:
         return f"{self.parent}/{self.name}"
